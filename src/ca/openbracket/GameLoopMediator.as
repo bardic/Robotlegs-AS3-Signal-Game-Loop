@@ -1,13 +1,8 @@
 package ca.openbracket {
 
-
-import ca.openbracket.event.GameLoopEvent;
 import ca.openbracket.signal.GameLoopSignal;
 
-import com.bit101.components.PushButton;
-
 import flash.events.Event;
-
 import flash.events.MouseEvent;
 
 import org.robotlegs.mvcs.Mediator;
@@ -19,21 +14,21 @@ public class GameLoopMediator extends Mediator {
     override public function onRegister():void {
         view.startLoop.addEventListener(MouseEvent.CLICK,onStartLoop);
         view.stopLoop.addEventListener(MouseEvent.CLICK, onStopLoop);
+        gameLoopSignal.add(onGameLoop);
     }
 
-    private function onGameLoop():void {
+    private function onGameLoop(ev:Event):void {
         trace("game look is running");
     }
 
     private function onStopLoop(ev:MouseEvent):void {
-        dispatch(new GameLoopEvent(GameLoopEvent.STOP_LOOP));
+        view.removeEventListener(Event.ENTER_FRAME,gameLoopSignal.dispatch);
         trace("STOP GAME LOOP");
     }
 
     private function onStartLoop(ev:MouseEvent):void {
         trace("START GAME LOOP");
-        gameLoopSignal.add(onGameLoop);
-        dispatch(new GameLoopEvent(GameLoopEvent.START_LOOP));
+        view.addEventListener(Event.ENTER_FRAME,gameLoopSignal.dispatch);
     }
 }
 }

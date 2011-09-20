@@ -5,7 +5,6 @@ import ca.openbracket.SignalsGameLoopContext;
 import com.bit101.components.PushButton;
 
 import flash.display.Sprite;
-import flash.text.TextField;
 
 public class Signals_Gameloop extends Sprite {
     protected var context:SignalsGameLoopContext;
