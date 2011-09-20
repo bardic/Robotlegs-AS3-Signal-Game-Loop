@@ -17,18 +17,16 @@ public class GameLoopMediator extends Mediator {
         gameLoopSignal.add(onGameLoop);
     }
 
-    private function onGameLoop(ev:Event):void {
+    private function onGameLoop():void {
         trace("game look is running");
     }
 
-    private function onStopLoop(ev:MouseEvent):void {
-        view.removeEventListener(Event.ENTER_FRAME,gameLoopSignal.dispatch);
-        trace("STOP GAME LOOP");
+    private function onStartLoop(ev:MouseEvent):void {
+        gameLoopSignal.start();
     }
 
-    private function onStartLoop(ev:MouseEvent):void {
-        trace("START GAME LOOP");
-        view.addEventListener(Event.ENTER_FRAME,gameLoopSignal.dispatch);
+    private function onStopLoop(ev:MouseEvent):void {
+        gameLoopSignal.stop()
     }
 }
 }
